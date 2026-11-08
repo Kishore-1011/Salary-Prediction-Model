@@ -1,0 +1,29 @@
+{
+  "rows": 51,
+  "duplicate_rows": 8,
+  "training_data": {
+    "r2": 0.931,
+    "mae": 2134
+  },
+  "cross_validated": {
+    "r2": 0.893,
+    "r2_std": 0.083,
+    "mae": 2338
+  },
+  "cross_validated_without_duplicates": {
+    "r2": 0.868,
+    "r2_std": 0.103,
+    "mae": 2459
+  },
+  "average_salary_baseline": {
+    "r2": -0.216,
+    "r2_std": 0.332,
+    "mae": 8592
+  },
+  "intercept": 22907.0,
+  "salary_change_per_unit": {
+    "experience": 2750.6,
+    "test_score": 1021.2,
+    "interview_score": 2507.4
+  }
+}
