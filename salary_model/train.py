@@ -18,7 +18,15 @@ from sklearn.model_selection import RepeatedKFold, cross_validate
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer
 
-from .features import EXPERIENCE, FEATURES, SCORES, TARGET, parse_experience_column, require_columns
+from .features import (
+    EXPERIENCE,
+    FEATURES,
+    SCORES,
+    TARGET,
+    parse_experience,
+    parse_experience_column,
+    require_columns,
+)
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_DATA = ROOT / "data" / "input_dataset.csv"
@@ -65,6 +73,7 @@ def train(data_path=DEFAULT_DATA, model_path=DEFAULT_MODEL, metrics_path=DEFAULT
     model = build_pipeline().fit(frame[FEATURES], frame[TARGET])
     regression = model.named_steps["regression"]
     predictions = model.predict(frame[FEATURES])
+    inputs = {EXPERIENCE: frame[EXPERIENCE].map(parse_experience), **{name: frame[name] for name in SCORES}}
 
     metrics = {
         "rows": len(frame),
@@ -76,6 +85,10 @@ def train(data_path=DEFAULT_DATA, model_path=DEFAULT_MODEL, metrics_path=DEFAULT
         "cross_validated": cross_validated_scores(frame),
         "cross_validated_without_duplicates": cross_validated_scores(frame.drop_duplicates()),
         "average_salary_baseline": cross_validated_scores(frame, estimator=DummyRegressor()),
+        "input_ranges": {
+            name: {"min": float(values.min()), "max": float(values.max())}
+            for name, values in inputs.items()
+        },
         "intercept": round(float(regression.intercept_), 1),
         "salary_change_per_unit": {
             name: round(float(value), 1) for name, value in zip(FEATURES, regression.coef_)

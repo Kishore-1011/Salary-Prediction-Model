@@ -86,6 +86,7 @@ def test_train_and_predict_write_their_files(tmp_path):
 
     metrics = json.loads(metrics_path.read_text(encoding="utf-8"))
     assert metrics["rows"] == 51
+    assert metrics["input_ranges"]["experience"] == {"min": 0.0, "max": 11.0}
     assert metrics["cross_validated"]["r2"] > metrics["average_salary_baseline"]["r2"]
 
     input_path = tmp_path / "input.csv"

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Estimate a candidate's salary from experience, test score and interview score.">
+    <title>Salary Prediction</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <main class="page">
+        <header class="intro">
+            <h1>Salary Prediction</h1>
+            <p>Enter a candidate's details to get an estimated salary.</p>
+        </header>
+
+        <div class="layout">
+            <form id="candidate-form" class="card" novalidate>
+                <div class="field">
+                    <label for="experience">Experience</label>
+                    <input id="experience" name="experience" type="number" inputmode="decimal" min="0" max="60" step="any" aria-describedby="experience-hint experience-error">
+                    <p id="experience-hint" class="hint">Years, from 0 to 60</p>
+                    <p id="experience-error" class="field-error" hidden></p>
+                </div>
+
+                <div class="field">
+                    <label for="test_score">Test score</label>
+                    <input id="test_score" name="test_score" type="number" inputmode="decimal" min="0" max="10" step="any" aria-describedby="test_score-hint test_score-error">
+                    <p id="test_score-hint" class="hint">Out of 10</p>
+                    <p id="test_score-error" class="field-error" hidden></p>
+                </div>
+
+                <div class="field">
+                    <label for="interview_score">Interview score</label>
+                    <input id="interview_score" name="interview_score" type="number" inputmode="decimal" min="0" max="10" step="any" aria-describedby="interview_score-hint interview_score-error">
+                    <p id="interview_score-hint" class="hint">Out of 10</p>
+                    <p id="interview_score-error" class="field-error" hidden></p>
+                </div>
+
+                <button id="submit" type="submit">Estimate salary</button>
+                <p id="form-error" class="form-error" role="alert" hidden></p>
+            </form>
+
+            <section class="card result" aria-live="polite" aria-label="Estimated salary">
+                <p id="empty-state" class="empty-state">Your estimate will appear here.</p>
+
+                <div id="result" hidden>
+                    <p class="result-label">Estimated salary</p>
+                    <p id="salary" class="salary"></p>
+                    <p id="range" class="range"></p>
+                    <ul id="warnings" class="warnings" hidden></ul>
+                    <p id="note" class="note"></p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

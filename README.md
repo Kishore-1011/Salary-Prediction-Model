@@ -4,6 +4,12 @@
 
 A linear regression model that estimates a candidate's salary from years of experience, written test score and interview score. It handles the messy parts of the data, such as experience written as words and missing values, in one reusable scikit-learn pipeline.
 
+## Web app
+
+Enter a candidate's details in the browser and the model shows an estimated salary, a likely range, and a warning if the inputs are outside what it was trained on.
+
+![Salary Prediction web app showing an estimated salary](docs/images/web_app.png)
+
 ## Results
 
 Each result below comes from `python -m salary_model.train`. The cross-validated rows use repeated 5-fold cross-validation, so every row is tested by a model that did not train on it.
@@ -33,6 +39,16 @@ source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+Start the web app, then open <http://127.0.0.1:8000> in your browser:
+
+```bash
+python -m salary_model.api
+```
+
+Scores are out of 10. To stop the app, press `Ctrl+C` in the terminal. The API is documented at <http://127.0.0.1:8000/docs>, and it accepts `POST /predict` with `experience`, `test_score` and `interview_score` as JSON.
+
+The trained model is included, so you only need the commands below to retrain it or predict for a whole CSV.
+
 Train the model and write `models/salary_model.joblib` and `outputs/metrics.json`:
 
 ```bash
@@ -61,11 +77,11 @@ python -m pytest
 
 ```
 ├── data/            Training data and sample candidates
-├── docs/images/     Chart used in this README
+├── docs/images/     Screenshot and chart used in this README
 ├── models/          Saved model
 ├── notebooks/       Data exploration and evaluation
 ├── outputs/         Metrics and predictions
-├── salary_model/    Cleaning rules, training and prediction code
+├── salary_model/    Cleaning rules, training, prediction and the web app
 └── tests/           Automated tests
 ```
 

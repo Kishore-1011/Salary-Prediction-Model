@@ -20,6 +20,20 @@
     "r2_std": 0.332,
     "mae": 8592
   },
+  "input_ranges": {
+    "experience": {
+      "min": 0.0,
+      "max": 11.0
+    },
+    "test_score": {
+      "min": 6.0,
+      "max": 10.0
+    },
+    "interview_score": {
+      "min": 6.0,
+      "max": 10.0
+    }
+  },
   "intercept": 22907.0,
   "salary_change_per_unit": {
     "experience": 2750.6,
